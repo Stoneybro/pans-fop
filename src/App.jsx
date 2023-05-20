@@ -18,7 +18,7 @@ const [poll,setPoll]=useState('')
 
   useEffect(()=>{
     // pollwidth.current.style.width=`${scale(data.percentage,0,100,0,poll)}px`
-    setPoll(pollref.current.offsetWidth)
+
     const fetchData = async () => {
       try {
         const response = await axios.get('https://pan-vote.onrender.com/v1/data');
@@ -31,7 +31,9 @@ const [poll,setPoll]=useState('')
 
     fetchData();
  
-
+    if (pollref.current) {
+      setPoll(pollref.current.offsetWidth);
+    }
   },[])
 
 
