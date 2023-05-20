@@ -31,12 +31,13 @@ const [poll,setPoll]=useState('')
 
     fetchData();
  
-    if (pollref.current) {
-      setPoll(pollref.current.offsetWidth);
-    }
   },[])
 
-
+useEffect(()=>{
+     if (pollref.current) {
+      setPoll(pollref.current.offsetWidth);
+    }
+},[pollref.current])
   return (
     <div className="h-full w-screen">
       <nav className='bg-secondary sticky top-0 left-0 w-full text-white text-2xl text-center py-2 z-50'>
