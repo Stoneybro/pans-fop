@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState,useLayoutEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -33,11 +33,25 @@ const [poll,setPoll]=useState('')
  
   },[])
 
-useEffect(()=>{
-     if (pollref.current) {
-      setPoll(pollref.current.offsetWidth);
+  useLayoutEffect(() => {
+    function updatePollWidth() {
+      if (pollref.current) {
+        setPoll(pollref.current.offsetWidth);
+      }
     }
-},[pollref.current])
+  
+    // Call the update function initially
+    updatePollWidth();
+  
+    // Attach an event listener to resize events
+    window.addEventListener('resize', updatePollWidth);
+  
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('resize', updatePollWidth);
+    };
+  }, [pollref.current]);
+  
   return (
     <div className="h-full w-screen">
       <nav className='bg-secondary sticky top-0 left-0 w-full text-white text-2xl text-center py-2 z-50'>
