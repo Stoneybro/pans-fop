@@ -49,9 +49,9 @@ useEffect(()=>{
       <main className="bg-secondary flex flex-col gap-3 p-4 rounded-3xl">
               {/* ////////////single////////////// */}
               {userdata?.map((data)=>{
-                console.log(scale(data.percentage,0,100,0,poll));
+
                 const width=scale(data?.percentage,0,100,0,poll)
-                console.log(width);
+
                   return(
                     <div key={data._id} ref={pollref}  className=" flex justify-between text-sm bg-tetiary py-2 px-3 rounded-xl relative overflow-hidden"><div ref={pollwidth} className={`bg-[#7FFA8A] h-full flex items-center absolute   top-0 left-0`} style={{width:`${width}px`}}><span className='pl-4'> {data.fullname}</span></div><span className="ml-auto z-10 text-xs">{data.no_votes} { data.no_votes===1?'vote':'votes'}</span></div>
                   )
