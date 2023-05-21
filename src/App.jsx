@@ -128,7 +128,7 @@ const pollstatistics=userdata?.map((data)=>{
                  {/* /////////// big buttons(total votes)/////////////// */}
       <div className="flex text-white gap-3">
       <div className="flex flex-1 flex-col justify-center items-center bg-accent-one py-2 rounded-xl"><span className="">Total Votes</span><span className="">{data.total_votes}</span></div>
-      <div className="flex-1  bg-accent-one py-2 rounded-xl flex flex-col justify-center items-center"><span className="">Leader</span><span className="">{data.total_votes}</span></div>
+      <div className="flex-1  bg-accent-one py-2 rounded-xl flex flex-col justify-center items-center"><span className="">Current Leader</span><span className="">{data.leader.fullname}</span></div>
       </div>
 
       </article>
