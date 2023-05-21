@@ -18,6 +18,7 @@ const [vote,setVote]=useState()
 const [id,setId]=useState()
 const [payspinner,setPayspinner]=useState(false)
 const [payres,setPayres]=useState()
+const [leader,setLeader]=useState()
 const [count,setCount]=useState(5)
 const votes = [
   { vote: 5,price: 500 },
@@ -47,6 +48,7 @@ const [price,setPrice]=useState(votes[0].price)
         const response = await axios.get('https://pan-vote.onrender.com/v1/data');
         Setuserdata(response.data.contestants);
         setData(response.data)
+        setLeader(response.data.leader)
       //  work()
       } catch (error) {
         console.log(error);
@@ -63,6 +65,7 @@ const [price,setPrice]=useState(votes[0].price)
     setCount(vote)
 
   }
+  //console.log(data.leader.fullname);
   async function pay(id,vote) {
     try {
       setPayspinner(true)
@@ -96,6 +99,9 @@ const pollstatistics=userdata?.map((data)=>{
       <div key={data._id} ref={pollref}  className=" flex justify-between text-sm bg-tetiary py-2 px-3 rounded-xl relative overflow-hidden"><div ref={pollwidth} className={`bg-[#7FFA8A] h-full flex items-center absolute   top-0 left-0`} style={{width:`${width}px`}}><span className='pl-4'> {data.fullname}</span></div><span className="ml-auto z-10 text-xs">{data.no_votes} { data.no_votes===1?'vote':'votes'}</span></div>
     )
 })
+const contestantWithHighestVotes = [...userdata].sort((a, b) => b.no_votes - a.no_votes)[0];
+
+
   return (
     <div className={`h-full w-screen font-poppins ${vote?' pointer-events-none   ':''}`}>
       <nav className='bg-secondary sticky top-0 left-0 w-full text-white text-2xl text-center py-2 z-50'>
@@ -128,7 +134,7 @@ const pollstatistics=userdata?.map((data)=>{
                  {/* /////////// big buttons(total votes)/////////////// */}
       <div className="flex text-white gap-3">
       <div className="flex flex-1 flex-col justify-center items-center bg-accent-one py-2 rounded-xl"><span className="">Total Votes</span><span className="">{data.total_votes}</span></div>
-      <div className="flex-1  bg-accent-one py-2 rounded-xl flex flex-col justify-center items-center"><span className="">Current Leader</span><span className="">{data.leader.fullname}</span></div>
+      <div className="flex-1  bg-accent-one py-2 rounded-xl flex flex-col justify-center items-center"><span className="">Current Leader</span><span className="">{contestantWithHighestVotes&& contestantWithHighestVotes.fullname}</span></div>
       </div>
 
       </article>
