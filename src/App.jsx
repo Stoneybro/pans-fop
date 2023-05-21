@@ -96,7 +96,7 @@ const pollstatistics=userdata?.map((data)=>{
 
     return(
       
-      <div key={data._id} ref={pollref}  className=" flex justify-between text-sm bg-tetiary py-2 px-3 rounded-xl relative overflow-hidden"><div ref={pollwidth} className={`bg-[#7FFA8A] h-full flex items-center absolute   top-0 left-0`} style={{width:`${width}px`}}><span className='pl-4'> {data.fullname}</span></div><span className="ml-auto z-10 text-xs">{data.no_votes} { data.no_votes===1?'vote':'votes'}</span></div>
+      <div key={data._id} ref={pollref}  className=" flex justify-between text-sm bg-tetiary py-2 px-3 rounded-xl relative overflow-hidden"><div ref={pollwidth} className={`bg-[#7FFA8A] h-full flex items-center absolute   top-0 left-0`} style={{width:`${width}px`}}><span className='pl-4'> {data.fullname}</span></div><span className="ml-auto z-10 text-xs text-white">{data.no_votes} { data.no_votes===1?'vote':'votes'}</span></div>
     )
 })
 const contestantWithHighestVotes = [...userdata].sort((a, b) => b.no_votes - a.no_votes)[0];
@@ -113,7 +113,7 @@ const contestantWithHighestVotes = [...userdata].sort((a, b) => b.no_votes - a.n
       <article className='my-8 mx-6 flex flex-col gap-4 relative '>
       <div className="text-white text-xl">Poll Statistics</div>
             {/* /////////////poll-card///////////// */}
-     { <main className={`bg-secondary ${userdata[0]?'':'opacity-0 my-16'} flex flex-col gap-3 p-4 rounded-3xl`}>
+     { <main className={`bg-secondary ${userdata[0]?'':'opacity-0 my-16'} flex flex-col gap-3 p-4 rounded-3xl `}>
               {/* ////////////single////////////// */}
               {userdata[0]?pollstatistics: <div  ref={pollref}  className=" flex justify-between text-sm bg-tetiary py-2 px-3 rounded-xl relative overflow-hidden "><div ref={pollwidth} className={`bg-[#7FFA8A] h-full flex items-center absolute   top-0 left-0`} style={{width:`0px`}}><span className='pl-4'> john</span></div><span className="ml-auto z-10 text-xs">0 votes</span></div>}
      
