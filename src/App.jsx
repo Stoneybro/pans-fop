@@ -6,6 +6,7 @@ import './App.css'
 import {FaChevronDown,FaChevronUp,FaCheck,FaTimes} from 'react-icons/fa'
 import { Fragment } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
+import { MutatingDots } from 'react-loader-spinner'
 
 import axios from 'axios'
 
@@ -85,6 +86,7 @@ const pollstatistics=userdata?.map((data)=>{
   const width=scale(data?.percentage,0,100,0,poll)
 
     return(
+      
       <div key={data._id} ref={pollref}  className=" flex justify-between text-sm bg-tetiary py-2 px-3 rounded-xl relative overflow-hidden"><div ref={pollwidth} className={`bg-[#7FFA8A] h-full flex items-center absolute   top-0 left-0`} style={{width:`${width}px`}}><span className='pl-4'> {data.fullname}</span></div><span className="ml-auto z-10 text-xs">{data.no_votes} { data.no_votes===1?'vote':'votes'}</span></div>
     )
 })
@@ -96,15 +98,27 @@ const pollstatistics=userdata?.map((data)=>{
       <div className={`${vote?' pointer-events-none blur-sm  ':''}`}>
 
       
-      <article className='my-8 mx-6 flex flex-col gap-4'>
+      <article className='my-8 mx-6 flex flex-col gap-4 relative '>
       <div className="text-white text-xl">Poll Statistics</div>
             {/* /////////////poll-card///////////// */}
-      <main className="bg-secondary flex flex-col gap-3 p-4 rounded-3xl">
+     { <main className={`bg-secondary ${userdata[0]?'':'opacity-0 my-16'} flex flex-col gap-3 p-4 rounded-3xl`}>
               {/* ////////////single////////////// */}
-              {userdata[0]?pollstatistics: <div  ref={pollref}  className=" flex justify-between text-sm bg-tetiary py-2 px-3 rounded-xl relative overflow-hidden"><div ref={pollwidth} className={`bg-[#7FFA8A] h-full flex items-center absolute   top-0 left-0`} style={{width:`0px`}}><span className='pl-4'> john</span></div><span className="ml-auto z-10 text-xs">0 votes</span></div>}
+              {userdata[0]?pollstatistics: <div  ref={pollref}  className=" flex justify-between text-sm bg-tetiary py-2 px-3 rounded-xl relative overflow-hidden "><div ref={pollwidth} className={`bg-[#7FFA8A] h-full flex items-center absolute   top-0 left-0`} style={{width:`0px`}}><span className='pl-4'> john</span></div><span className="ml-auto z-10 text-xs">0 votes</span></div>}
      
-        </main>
+        </main>}
 
+        {userdata[0]?'':        <div className='absolute w-full h-full flex items-center justify-center'><MutatingDots
+  height="100"
+  width="100"
+  color="rgb(59 70 241)"
+  ariaLabel="line-wave"
+  wrapperStyle={{}}
+  wrapperClass=""
+  visible={true}
+  firstLineColor=""
+  middleLineColor=""
+  lastLineColor=""
+/></div>}
                  {/* /////////// big buttons(total votes)/////////////// */}
       <div className="flex text-white gap-3">
       <div className="flex flex-1 flex-col justify-center items-center bg-accent-one py-2 rounded-xl"><span className="">Total Votes</span><span className="">{data.total_votes}</span></div>
