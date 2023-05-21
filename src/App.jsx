@@ -46,7 +46,6 @@ const [price,setPrice]=useState(votes[0].price)
         const response = await axios.get('https://pan-vote.onrender.com/v1/data');
         Setuserdata(response.data.contestants);
         setData(response.data)
-        work()
       } catch (error) {
         console.log(error);
       }
@@ -64,9 +63,9 @@ const [price,setPrice]=useState(votes[0].price)
      
     }
 
-// window.onload=()=>setTimeout(() => {
-//     work()
-//   }, 2000);
+window.onload=()=>setTimeout(() => {
+    work()
+  }, 2000);
 
 
 
