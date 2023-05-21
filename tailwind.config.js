@@ -5,6 +5,9 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontFamily: {
+      'poppins': ['poppins','sans-serif']
+    },
     extend: {
       colors:{
         'primary':'#0D0D0D',
@@ -12,7 +15,8 @@ export default {
         'tetiary':'#3A3A3A',
         'accent-one':'#3B46F1',
         'accent-two':"#7FFA8A"
-      }
+      },
+
     },
   },
   plugins: [],

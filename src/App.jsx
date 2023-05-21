@@ -1,7 +1,5 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useRef, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import {FaChevronDown,FaChevronUp,FaCheck,FaTimes} from 'react-icons/fa'
 import { Fragment } from 'react'
@@ -91,7 +89,7 @@ const pollstatistics=userdata?.map((data)=>{
     )
 })
   return (
-    <div className={`h-full w-screen ${vote?' pointer-events-none   ':''}`}>
+    <div className={`h-full w-screen font-poppins ${vote?' pointer-events-none   ':''}`}>
       <nav className='bg-secondary sticky top-0 left-0 w-full text-white text-2xl text-center py-2 z-50'>
         Face of Pharmacy
       </nav>
