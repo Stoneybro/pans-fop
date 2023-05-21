@@ -91,11 +91,11 @@ const pollstatistics=userdata?.map((data)=>{
     )
 })
   return (
-    <div className={`h-full w-screen ${vote?' pointer-events-none  ':''}`}>
+    <div className={`h-full w-screen ${vote?' pointer-events-none   ':''}`}>
       <nav className='bg-secondary sticky top-0 left-0 w-full text-white text-2xl text-center py-2 z-50'>
         Face of Pharmacy
       </nav>
-      <div className={`${vote?' pointer-events-none blur-sm  ':''}`}>
+      <div className={` relative${vote?' pointer-events-none blur-sm  ':''}`}>
 
       
       <article className='my-8 mx-6 flex flex-col gap-4 relative '>
@@ -164,7 +164,7 @@ const pollstatistics=userdata?.map((data)=>{
       </div>
        {/* ////////////modal////////////// */}
 
-      {vote&&<div className="flex fixed flex-col items-center p-4 bg-white w-[90%]  top-20 left-6 z-20 rounded-xl pointer-events-auto">
+      {vote&&<div className="flex fixed flex-col items-center p-4 bg-white w-[90%]  top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-20 rounded-xl pointer-events-auto">
         <FaTimes className='absolute top-4 right-4 cursor-pointer' size={20} onClick={cancelModal} />
       <div className="h-16 w-16 rounded-full bg-black "></div>
       <div className="text-xl text-black">{vote[0].fullname}</div>
