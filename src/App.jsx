@@ -4,7 +4,7 @@ import './App.css'
 import {FaChevronDown,FaChevronUp,FaCheck,FaTimes} from 'react-icons/fa'
 import { Fragment } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
-import { MutatingDots } from 'react-loader-spinner'
+import { MutatingDots,TailSpin,Oval } from 'react-loader-spinner'
 
 import axios from 'axios'
 
@@ -16,6 +16,7 @@ const [data,setData]=useState([])
 const [poll,setPoll]=useState('')
 const [vote,setVote]=useState()
 const [id,setId]=useState()
+const [payspinner,setPayspinner]=useState(false)
 const [payres,setPayres]=useState()
 const [count,setCount]=useState(5)
 const votes = [
@@ -64,10 +65,11 @@ const [price,setPrice]=useState(votes[0].price)
   }
   async function pay(id,vote) {
     try {
+      setPayspinner(true)
       const response = await axios.post(`https://pan-vote.onrender.com/v1/vote/${id}`,vote)
-    setPayres(response.data)
+      setPayres(response.data)
     window.location.href=response.data.data.authorization_url
-      //console.log(response.data.data.authorization_url);
+      console.log(response.data.data.authorization_url);
     } catch (error) {
       console.log(error);
     }
@@ -126,22 +128,22 @@ const pollstatistics=userdata?.map((data)=>{
                  {/* /////////// big buttons(total votes)/////////////// */}
       <div className="flex text-white gap-3">
       <div className="flex flex-1 flex-col justify-center items-center bg-accent-one py-2 rounded-xl"><span className="">Total Votes</span><span className="">{data.total_votes}</span></div>
-      <div className="flex-1  bg-accent-one py-2 rounded-xl"></div>
+      <div className="flex-1  bg-accent-one py-2 rounded-xl flex flex-col justify-center items-center"><span className="">Leader</span><span className="">{data.total_votes}</span></div>
       </div>
 
       </article>
 
       <article className='my-8 mx-6 flex flex-col gap-4 '>
     <div className="text-white text-xl">Contestants</div>
-    <main className="flex flex-col gap-8">
+    <main className="flex flex-col gap-8 relative "style={{minHeight:`200px`}}>
 
 
 
-{userdata.map((data,index)=>{
+{userdata[0]?userdata.map((data,index)=>{
   return(
     < div key={index}>
      {/* ////////////contestant cards////////////// */}
-     <div className="bg-secondary rounded-3xl overflow-hidden">
+     <div className="bg-secondary rounded-3xl overflow-hidden ">
 
 {/* ////////////white-segment////////////// */}
   <div className=" flex flex-col items-center bg-white rounded-3xl pg py-4 ">
@@ -160,7 +162,18 @@ const pollstatistics=userdata?.map((data)=>{
 
     </div>
    )
-})}
+}):<div className='absolute top-10 w-full h-full flex justify-center'><MutatingDots
+height="100"
+width="100"
+color="rgb(59 70 241)"
+ariaLabel="line-wave"
+wrapperStyle={{}}
+wrapperClass=""
+visible={true}
+firstLineColor=""
+middleLineColor=""
+lastLineColor=""
+/></div>}
  
     </main>
 
@@ -235,9 +248,19 @@ const pollstatistics=userdata?.map((data)=>{
       </div>
       
        </div>
-       <button className='bg-accent-one text-white w-full mt-4 p-1 rounded-xl' onClick={()=>pay(id,count)}>Pay Now</button>
+       <button className='bg-accent-one text-white w-full mt-4 p-2 rounded-xl flex justify-center' onClick={()=>pay(id,count)}>{payspinner?<Oval
+  height="20"
+  width="20"
+  color="White"
+  ariaLabel="tail-spin-loading"
+  radius="5"
+  wrapperStyle={{}}
+  wrapperClass=""
+  visible={true}
+/>:'Pay Now'}</button>
+       <div className='p-2  text-xs text-gray-700 text-center'><span className="text-bold">Powered by</span> next</div>
        </div>}
-
+            <div className='border-dotted border-t-[1px] mt-auto border-gray-300 p-4 text-xs text-white text-center'><span className="text-bold">Powered by</span> next</div>
     </div>
   )
 }
