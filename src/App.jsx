@@ -15,7 +15,9 @@ const [userdata,Setuserdata]=useState([])
 const [data,setData]=useState([])
 const [poll,setPoll]=useState('')
 const [vote,setVote]=useState()
-const [count,setCount]=useState(0)
+const [id,setId]=useState()
+const [payres,setPayres]=useState()
+const [count,setCount]=useState(5)
 const votes = [
   { vote: 5,price: 500 },
   { vote: 10, price: 1000 },
@@ -32,10 +34,9 @@ const [price,setPrice]=useState(votes[0].price)
 }
   function cancelModal(params) {
     setVote()
+    setId()
   }
-  function test(fee) {
-    setPrice(fee)
-  }
+
 
   useEffect(()=>{
     // pollwidth.current.style.width=`${scale(data.percentage,0,100,0,poll)}px`
@@ -55,20 +56,25 @@ const [price,setPrice]=useState(votes[0].price)
  
   },[])
 
-    // function work(params) {
-    //   if (pollref.current) {
-    //     setPoll(pollref.current.offsetWidth)
-        
-    //   }else{ console.log('error');}
-     
-    // }
-
+  function test(fee,vote) {
   
-  // window.onload=()=>setTimeout(() => {
-  //   console.log('paint work');
-  //   work()
-  // }, 2000);
+    setPrice(fee)
+    setCount(vote)
+
+  }
+  async function pay(id,vote) {
+    try {
+      const response = await axios.post(`https://pan-vote.onrender.com/v1/vote/${id}`,vote)
+    setPayres(response.data)
+    window.location.href=response.data.data.authorization_url
+      //console.log(response.data.data.authorization_url);
+    } catch (error) {
+      console.log(error);
+    }
+    
+  }
 function votec(id) {
+  setId(id)
   const choice=userdata.filter((data)=>data._id===id)
   setVote(choice)
 }
@@ -192,7 +198,7 @@ const pollstatistics=userdata?.map((data)=>{
                   key={personIdx}
                   className={({ active,selected }) =>
                     (`relative cursor-default select-none py-2 pl-4 text-xs pr-4 ${
-                      active ? `bg-amber-100 text-amber-900 ${test(person.price)}` : 'text-gray-900'
+                      active ? `bg-amber-100 text-amber-900 ${test(person.price,person.vote)}` : 'text-gray-900'
                     }${selected?`bg-blue-600`:``}`)
                   }
                   value={person}
@@ -229,7 +235,7 @@ const pollstatistics=userdata?.map((data)=>{
       </div>
       
        </div>
-       <button className='bg-accent-one text-white w-full mt-4 p-1 rounded-xl'>Pay Now</button>
+       <button className='bg-accent-one text-white w-full mt-4 p-1 rounded-xl' onClick={()=>pay(id,count)}>Pay Now</button>
        </div>}
 
     </div>
