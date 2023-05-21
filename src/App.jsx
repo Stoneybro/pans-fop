@@ -46,6 +46,7 @@ const [price,setPrice]=useState(votes[0].price)
         const response = await axios.get('https://pan-vote.onrender.com/v1/data');
         Setuserdata(response.data.contestants);
         setData(response.data)
+      //  work()
       } catch (error) {
         console.log(error);
       }
@@ -55,25 +56,38 @@ const [price,setPrice]=useState(votes[0].price)
  
   },[])
 
-    function work(params) {
-      if (pollref.current) {
-        setPoll(pollref.current.offsetWidth)
-        console.log(true);
-      }else{ console.log(false);}
+    // function work(params) {
+    //   if (pollref.current) {
+    //     setPoll(pollref.current.offsetWidth)
+        
+    //   }else{ console.log('error');}
      
-    }
+    // }
 
-window.onload=()=>setTimeout(() => {
-    work()
-  }, 2000);
-
-
-
-
+  
+  // window.onload=()=>setTimeout(() => {
+  //   console.log('paint work');
+  //   work()
+  // }, 2000);
 function votec(id) {
   const choice=userdata.filter((data)=>data._id===id)
   setVote(choice)
 }
+useEffect(()=>{
+  if (pollref.current) {
+    setPoll(pollref.current.offsetWidth)
+    
+  }else{ console.log('error');}
+},[pollref])
+
+const pollstatistics=userdata?.map((data)=>{
+
+  const width=scale(data?.percentage,0,100,0,poll)
+
+    return(
+      <div key={data._id} ref={pollref}  className=" flex justify-between text-sm bg-tetiary py-2 px-3 rounded-xl relative overflow-hidden"><div ref={pollwidth} className={`bg-[#7FFA8A] h-full flex items-center absolute   top-0 left-0`} style={{width:`${width}px`}}><span className='pl-4'> {data.fullname}</span></div><span className="ml-auto z-10 text-xs">{data.no_votes} { data.no_votes===1?'vote':'votes'}</span></div>
+    )
+})
   return (
     <div className={`h-full w-screen ${vote?' pointer-events-none  ':''}`}>
       <nav className='bg-secondary sticky top-0 left-0 w-full text-white text-2xl text-center py-2 z-50'>
@@ -87,14 +101,7 @@ function votec(id) {
             {/* /////////////poll-card///////////// */}
       <main className="bg-secondary flex flex-col gap-3 p-4 rounded-3xl">
               {/* ////////////single////////////// */}
-              {userdata?.map((data)=>{
-
-                const width=scale(data?.percentage,0,100,0,poll)
-
-                  return(
-                    <div key={data._id} ref={pollref}  className=" flex justify-between text-sm bg-tetiary py-2 px-3 rounded-xl relative overflow-hidden"><div ref={pollwidth} className={`bg-[#7FFA8A] h-full flex items-center absolute   top-0 left-0`} style={{width:`${width}px`}}><span className='pl-4'> {data.fullname}</span></div><span className="ml-auto z-10 text-xs">{data.no_votes} { data.no_votes===1?'vote':'votes'}</span></div>
-                  )
-              })}
+              {userdata[0]?pollstatistics: <div  ref={pollref}  className=" flex justify-between text-sm bg-tetiary py-2 px-3 rounded-xl relative overflow-hidden"><div ref={pollwidth} className={`bg-[#7FFA8A] h-full flex items-center absolute   top-0 left-0`} style={{width:`0px`}}><span className='pl-4'> john</span></div><span className="ml-auto z-10 text-xs">0 votes</span></div>}
      
         </main>
 
