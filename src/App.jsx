@@ -164,12 +164,12 @@ const pollstatistics=userdata?.map((data)=>{
       </div>
        {/* ////////////modal////////////// */}
 
-      {vote&&<div className="flex fixed flex-col items-center p-4 bg-white w-[90%] h-[60%] top-20 left-6 z-20 rounded-xl pointer-events-auto">
+      {vote&&<div className="flex fixed flex-col items-center p-4 bg-white w-[90%]  top-20 left-6 z-20 rounded-xl pointer-events-auto">
         <FaTimes className='absolute top-4 right-4 cursor-pointer' size={20} onClick={cancelModal} />
       <div className="h-16 w-16 rounded-full bg-black "></div>
       <div className="text-xl text-black">{vote[0].fullname}</div>
-      <div className="flex w-full h-full mt-4 justify-between">
-        <div className="flex-1">
+      <div className="flex w-full h-[50%] mt-4 justify-between border-dotted rounded-xl border-secondary border p-4 ">
+        <div className="flex-1 flex  justify-center">
       <Listbox value={selected} onChange={setSelected} >
         <div className="relative mt-1">
           <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
@@ -224,11 +224,14 @@ const pollstatistics=userdata?.map((data)=>{
       </Listbox>
       </div>
 
-      <div className="flex-1  flex flex-col justify-center items-center">
-      <div className="text-2xl ">Price:{price}</div>
-      <button className=''>pay now</button>
+      <div className="flex-1  flex flex-col items-center">
+      <div className="text-xl ">Price:</div>
+      <div className="text-2xl ">${price}</div>
+
       </div>
+      
        </div>
+       <button className='bg-accent-one text-white w-full mt-4 p-1 rounded-xl'>Pay Now</button>
        </div>}
 
     </div>
