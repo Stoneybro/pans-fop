@@ -55,14 +55,22 @@ const [price,setPrice]=useState(votes[0].price)
  
   },[])
 
+    function work(params) {
+      if (pollref.current) {
+        setPoll(pollref.current.offsetWidth)
+        console.log(true);
+      }else{ console.log(false);}
+     
+    }
 useEffect(()=>{
-  if (pollref.current) {
-    setPoll(pollref.current.offsetWidth)
-  }else{
-    setCount(prev=>prev+1)
+  const timeout=setTimeout(() => {
+    work()
+  }, 2000);
+  return () => {
+    clearTimeout(timeout);
   }
- 
-},[pollref.current])
+
+},[])
 
 function votec(id) {
   const choice=userdata.filter((data)=>data._id===id)
