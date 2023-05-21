@@ -46,6 +46,7 @@ const [price,setPrice]=useState(votes[0].price)
         const response = await axios.get('https://pan-vote.onrender.com/v1/data');
         Setuserdata(response.data.contestants);
         setData(response.data)
+        work()
       } catch (error) {
         console.log(error);
       }
@@ -62,15 +63,13 @@ const [price,setPrice]=useState(votes[0].price)
       }else{ console.log(false);}
      
     }
-useEffect(()=>{
-  const timeout=setTimeout(() => {
-    work()
-  }, 2000);
-  return () => {
-    clearTimeout(timeout);
-  }
 
-},[])
+// window.onload=()=>setTimeout(() => {
+//     work()
+//   }, 2000);
+
+
+
 
 function votec(id) {
   const choice=userdata.filter((data)=>data._id===id)
