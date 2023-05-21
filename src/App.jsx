@@ -16,7 +16,7 @@ const [userdata,Setuserdata]=useState([])
 const [data,setData]=useState([])
 const [poll,setPoll]=useState('')
 const [vote,setVote]=useState()
-
+const [count,setCount]=useState(0)
 const votes = [
   { vote: 5,price: 500 },
   { vote: 10, price: 1000 },
@@ -37,7 +37,7 @@ const [price,setPrice]=useState(votes[0].price)
   function test(fee) {
     setPrice(fee)
   }
-  console.log(price);
+
   useEffect(()=>{
     // pollwidth.current.style.width=`${scale(data.percentage,0,100,0,poll)}px`
 
@@ -56,9 +56,12 @@ const [price,setPrice]=useState(votes[0].price)
   },[])
 
 useEffect(()=>{
-     if (pollref.current) {
-      setPoll(pollref.current.offsetWidth);
-    }
+  if (pollref.current) {
+    setPoll(pollref.current.offsetWidth)
+  }else{
+    setCount(prev=>prev+1)
+  }
+ 
 },[pollref.current])
 
 function votec(id) {
@@ -162,10 +165,10 @@ function votec(id) {
               {votes.map((person, personIdx) => (
                 <Listbox.Option
                   key={personIdx}
-                  className={({ active,focus }) =>
+                  className={({ active,selected }) =>
                     (`relative cursor-default select-none py-2 pl-4 text-xs pr-4 ${
                       active ? `bg-amber-100 text-amber-900 ${test(person.price)}` : 'text-gray-900'
-                    }${focus?``:``}`)
+                    }${selected?`bg-blue-600`:``}`)
                   }
                   value={person}
                 >
